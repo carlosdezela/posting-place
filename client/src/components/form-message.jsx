@@ -16,6 +16,12 @@ function FormMessage({ onFormSubmit }) {
     onFormSubmit();
   });
 
+  const keyUp = (e) => {
+    const textarea = e.target;
+    let scHeight = textarea.scrollHeight;
+    textarea.style.height = `${scHeight + 4}px`;
+  };
+
   return (
     <div className="bg-slate-50 rounded-xl p-2 border-2 border-slate-500 w-1/2 mx-auto my-6 mb-24 shadow-md">
         <header className="pb-2 border-b-2 border-slate-300">
@@ -32,9 +38,10 @@ function FormMessage({ onFormSubmit }) {
             ' { ...register("title", { required: true }) } required />
 
             <label htmlFor="content" className='block text-xl text-slate-800 mb-2'>Contenido:</label>
-            <textarea id="content" name="content" className='
-              block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 mb-14
-            ' rows={4} { ...register("content", { required: true }) } required/>
+            <textarea id="content" name="content" onKeyUp={keyUp} className='
+  block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 mb-14 h-20
+' { ...register("content", { required: true }) } required/>
+
             <button type="submit" className='
               mt-2 relative float-right bottom-12 text-slate-800 border-2 border-slate-500 rounded-xl p-1 hover:bg-slate-200
               active:bottom-11
