@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './App.css';
 import Messages from './components/messages.jsx';
 import FormMessage from './components/form-message.jsx';
+import Refresh from './components/refresh.jsx'
 
 function App() {
   const [backendData, setBackendData] = useState();
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div>
+      <Refresh onRefresh={fetchData} />
       <FormMessage onFormSubmit={fetchData} />
       <Messages messagesData={backendData?.messages} />
     </div>

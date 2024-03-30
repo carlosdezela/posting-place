@@ -37,7 +37,7 @@ function FormMessage({ onFormSubmit }) {
             ' rows={4} { ...register("content", { required: true }) } required/>
             <button type="submit" className='
               mt-2 relative float-right bottom-12 text-slate-800 border-2 border-slate-500 rounded-xl p-1 hover:bg-slate-200
-              active:bottom-10
+              active:bottom-11
             '>Enviar mensaje</button>
           </form>
         </section>
