@@ -6,12 +6,12 @@ app.use(express.json());
 let data = {
   "messages": [
     {
-      name: "Bob",
+      title: "Bob",
       text: "Buenos días mundo!",
       date: "29/3/2024"
     },
     {
-      name: "Alice",
+      title: "Alice",
       text: "Buenas noches mundo!",
       date: "29/3/2024"
     }
@@ -25,7 +25,7 @@ app.get('/api', (req, res) => {
 app.post('/msg', (req, res) => {
   let newMsg = req.body;
   data.messages.push({
-    name: "Anónimo",
+    title: newMsg.title,
     text: newMsg.content,
     date: newMsg.date
   });

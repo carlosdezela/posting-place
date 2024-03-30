@@ -26,12 +26,17 @@ function FormMessage({ onFormSubmit }) {
         </header>
         <section className="pt-2">
           <form onSubmit={onSubmit}>
+            <label htmlFor="title" className='block text-xl text-slate-800 mb-2'>Titulo:</label>
+            <input type="text" htmlFor="title" className='
+              block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 mb-2
+            ' { ...register("title", { required: true }) } required />
+
             <label htmlFor="content" className='block text-xl text-slate-800 mb-2'>Contenido:</label>
             <textarea id="content" name="content" className='
-              block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 mb-11
+              block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 mb-14
             ' rows={4} { ...register("content", { required: true }) } required/>
             <button type="submit" className='
-              mt-2 relative float-right bottom-11 text-slate-800 border-2 border-slate-500 rounded-xl p-1 hover:bg-slate-200
+              mt-2 relative float-right bottom-12 text-slate-800 border-2 border-slate-500 rounded-xl p-1 hover:bg-slate-200
               active:bottom-10
             '>Enviar mensaje</button>
           </form>
