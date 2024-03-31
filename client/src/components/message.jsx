@@ -14,6 +14,7 @@ function Message({ message, i }) {
           </nav>
         </div>
       </header>
+      <img src={message?.file} alt="" />
       <section className="pt-2">
         <p>{message.text}</p>
       </section>

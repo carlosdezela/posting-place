@@ -27,9 +27,9 @@ app.post('/msg', (req, res) => {
   data.messages.push({
     title: newMsg.title,
     text: newMsg.content,
-    date: newMsg.date
+    date: newMsg.date,
+    file: newMsg.file
   });
-  console.log(data)
 })
 
 app.listen(4444, () => {

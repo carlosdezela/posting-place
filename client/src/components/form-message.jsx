@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { ReactComponent as Photo } from "./icons/Photo.svg";
 
 function FormMessage({ onFormSubmit }) {
   const date = new Date();
@@ -6,14 +7,39 @@ function FormMessage({ onFormSubmit }) {
 
   const { register, handleSubmit } = useForm();
 
+  const getBase64 = (file, cb) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result)
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
   const onSubmit = handleSubmit((data) => {
-    data.date = fullDate;
-    fetch('/msg', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    onFormSubmit();
+    if (data.file.length > 0) {
+      getBase64(data.file[0], (result) => {
+        data.file = result;
+        data.date = fullDate;
+        fetch('/msg', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        onFormSubmit();
+      });
+    } else {
+      data.file = null;
+      data.date = fullDate;
+      fetch('/msg', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      onFormSubmit();
+    }
   });
 
   const keyUp = (e) => {
@@ -39,12 +65,17 @@ function FormMessage({ onFormSubmit }) {
 
             <label htmlFor="content" className='block text-xl text-slate-800 mb-2'>Contenido:</label>
             <textarea id="content" name="content" onKeyUp={keyUp} className='
-  block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 mb-14 h-20
+  block w-full text-slate-800 p-2 border-2 border-slate-500 rounded-xl focus:border-slate-800 h-20
 ' { ...register("content", { required: true }) } required/>
 
+            <Photo className="w-8 h-8 inline mr-4" />
+            <input type="file" name="File" id="file" className='mb-14 hover:bg-slate-200 cursor-pointer font-bold
+            rounded-xl p-1 border-2 border-slate-500 mt-2
+            ' { ...register("file") } accept=".png,.jpg,.jpeg" />
+
             <button type="submit" className='
-              mt-2 relative float-right bottom-12 text-slate-800 border-2 border-slate-500 rounded-xl p-1 hover:bg-slate-200
-              active:bottom-11
+              mt-2 relative float-right top-10 text-slate-800 border-2 border-slate-500 rounded-xl p-1 hover:bg-slate-200
+              active:top-11
             '>Enviar mensaje</button>
           </form>
         </section>
